@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404 - Page Not Found</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="https://imagenes.numart.com.co/favicon.ico">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .divbody {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background-color: #f9fafb;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .title {
+            color: #9ca3af;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .error-404 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .number {
+            font-size: 180px;
+            font-weight: bold;
+            color: #197BC2;
+            line-height: 1;
+        }
+
+        .icon-wrapper {
+            margin: 0 0.5rem;
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+            color: #197BC2;
+            stroke-width: 2.5;
+        }
+
+        .description {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+            max-width: 28rem;
+            line-height: 1.5;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .links a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .number {
+                font-size: 120px;
+            }
+            
+            .icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-8">
+          <div class="text-2xl font-bold">
+
+            <img style="width: auto;height: 50px;" class="om"
+              src="https://imagenes.numart.com.co/SOFIA-light-version.png" alt="SOFIA Logo">
+          </div>
+
+          <nav class="hidden lg:flex items-center gap-6">
+            <button class="text-white hover:text-blue-600 transition-colors text-sm font-medium">
+              Servicios
+              <span class="ml-1">▼</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="https://portal.numart.com.co/session/login"
+            class="text-blue-600 hover:text-blue-700 font-medium px-5 py-2 border border-blue-600 rounded-full text-sm transition-colors">
+            Iniciar sesión
+          </a>
+          <button
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-full text-sm transition-colors">
+            ¡Empieza hoy!
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+<div class="divbody">
+    <div class="container">
+        <!-- Título -->
+        <h1 class="title">Error: 404 Page Not Found</h1>
+
+        <!-- 404 con ícono -->
+        <div class="error-404">
+            <span class="number">4</span>
+            <div class="icon-wrapper">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+            </div>
+            <span class="number">4</span>
+        </div>
+
+        <!-- Texto descriptivo -->
+        <p class="description">
+            Sorry, the page you're looking for cannot be accessed.<br>
+            Here are a few links that may be helpful:
+        </p>
+
+        <!-- Enlaces -->
+        <div class="links">
+        </div>
+    </div>
+    
+  </div>
+ <footer class="bg-gray-50 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-8">
+
+        <div>
+          <a href="https://numart.com.co"><img style="width: auto;height: 35px;margin-bottom: 15px" class="om"
+              src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/footer-logo.png" alt="Numart Logo"></a>
+          <a href="https://sofia.numart.com.co"><img style="width: auto;height: 35px;" class="om"
+              src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/SOFIA-pictograma-nocolor.png"
+              alt="SOFIA Pictograma"></a>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-4">Numart</h3>
+          <ul class="space-y-3">
+            <a href="https://jobs.numart.com.co/vacantes"
+              class="text-gray-600 hover:text-blue-600 transition-colors text-sm">SOFIA</a></li>
+            <li><a href="https://numart.com.co/quienes-somos"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Acerca de</a></li>
+            <li><a href="https://jobs.numart.com.co/vacantes"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Empleos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-4">Soporte</h3>
+          <ul class="space-y-3">
+            <li><a href="https://help.numart.com.co"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Centro de ayuda</a></li>
+            <li><a href="https://numart.com.co/soporte"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Contáctanos</a></li>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-4">Desarrolladores</h3>
+          <ul class="space-y-3">
+            <li><a href="https://developer.numart.com.co/"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">API Numart</a></li>
+            <li><a href="https://comunidad.numart.com.co/"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Comunidad</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-4">Empresas</h3>
+          <ul class="space-y-3">
+            <li><a href="https://numart.com.co/empresas"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Business</a></li>
+            <li><a href="https://numart.com.co/nuestros-socios"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Socios</a></li>
+            <li><a href="https://marketplace.numart.com.co/"
+                class="text-gray-600 hover:text-blue-600 transition-colors text-sm">Marketplace</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
+        <div class="flex flex-wrap items-center gap-4">
+          <span>© 2026 Numart</span>
+          <a href="https://help.numart.com.co/privacidad" class="hover:text-blue-600 transition-colors">Privacidad</a>
+          <a href="https://help.numart.com.co/terminos-y-condiciones"
+            class="hover:text-blue-600 transition-colors">Términos y condiciones</a>
+          <a href="https://legal.numart.com.co/" class="hover:text-blue-600 transition-colors">Legales</a>
+        </div>
+        <div>
+          <button class="hover:text-blue-600 transition-colors">🇪🇸 Español</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>
