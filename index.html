@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOFIA - Sistema de Optimización Financiera con Inteligencia Artificial</title>
+  <link rel="icon" type="image/png" href="https://imagenes.numart.com.co/SOFIAfavicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #197bc2;
+      --blue-light: #37acff;
+      --blue-dark: #0e5a99;
+      --gold: #FFC439;
+      --dark: #111827;
+      --gray: #6B7280;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --green: #10B981;
+      --radius-lg: 1.5rem;
+      --radius-xl: 2rem;
+      --shadow-sm: 0 2px 12px rgba(0, 0, 0, .06);
+      --shadow-md: 0 8px 32px rgba(0, 0, 0, .10);
+      --shadow-lg: 0 24px 64px rgba(0, 0, 0, .14);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ===================== SCROLLBAR ===================== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--blue);
+      border-radius: 10px;
+    }
+
+    /* ===================== NAVBAR ===================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(25, 123, 194, .10);
+      transition: box-shadow .3s;
+    }
+
+    header.scrolled {
+      box-shadow: 0 4px 32px rgba(25, 123, 194, .10);
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-decoration: none;
+      letter-spacing: .02em;
+      transition: color .2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transition: transform .25s;
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .btn-outline {
+      font-family: inherit;
+      font-size: .875rem;
+      font-weight: 700;
+      padding: .55rem 1.4rem;
+      border-radius: 999px;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .btn-outline:hover {
+      background: var(--blue);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      font-family: inherit;
+      font-size: .875rem;
+      font-weight: 700;
+      padding: .6rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--blue);
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      box-shadow: 0 4px 16px rgba(25, 123, 194, .35);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(25, 123, 194, .45);
+    }
+
+    .btn-primary-lg {
+      font-size: 1.05rem;
+      padding: .85rem 2.2rem;
+    }
+
+    .btn-ghost {
+      font-family: inherit;
+      font-size: .95rem;
+      font-weight: 600;
+      padding: .8rem 2rem;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, .5);
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, border-color .2s, transform .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, .18);
+      border-color: rgba(255, 255, 255, .8);
+      transform: translateY(-2px);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+    }
+
+    /* ===================== HERO ===================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 70px;
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 90%, rgba(25, 123, 194, .07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(255, 196, 57, .10) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 60% at 90% 70%, rgba(16, 185, 129, .05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(25, 123, 194, .10) 1.2px, transparent 1.2px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(25, 123, 194, .08);
+      border: 1.5px solid rgba(25, 123, 194, .18);
+      color: var(--blue-dark);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: .4rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.8rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: heroFadeUp .6s ease .2s forwards;
+    }
+
+    .hero-badge span.dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, .25);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, .25);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, .10);
+      }
+    }
+
+    .hero-headline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: .3rem .6rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-word {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.1;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(28px) scale(.88);
+    }
+
+    .hero-word.sofia-word {
+      color: var(--blue);
+    }
+
+    .hero-word.loaded {
+      animation: wordReveal .55s cubic-bezier(.22, .68, 0, 1.4) forwards;
+    }
+
+    @keyframes wordReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    #feature-container {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-sub {
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: var(--gray);
+      max-width: 520px;
+      margin: 1.6rem auto 2.5rem;
+      line-height: 1.7;
+      font-weight: 400;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: heroFadeUp .6s ease 1.8s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: heroFadeUp .6s ease 2.1s forwards;
+    }
+
+    @keyframes heroFadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-scroll-hint {
+      margin-top: 3.5rem;
+      opacity: 0;
+      animation: heroFadeUp .6s ease 2.5s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: var(--gray);
+      font-size: .78rem;
+      letter-spacing: .06em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .scroll-mouse {
+      width: 22px;
+      height: 34px;
+      border: 2px solid rgba(25, 123, 194, .35);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .scroll-mouse::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 6px;
+      background: var(--blue);
+      border-radius: 2px;
+      animation: scrollDot 1.6s ease infinite;
+    }
+
+    @keyframes scrollDot {
+      0% {
+        top: 5px;
+        opacity: 1;
+      }
+
+      70% {
+        top: 14px;
+        opacity: 0;
+      }
+
+      100% {
+        top: 5px;
+        opacity: 0;
+      }
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      opacity: 0;
+      animation: heroFadeUp .6s ease 2.3s forwards;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1;
+    }
+
+    .stat-number span {
+      color: var(--blue);
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      color: var(--gray);
+      font-weight: 600;
+      letter-spacing: .04em;
+      margin-top: .3rem;
+    }
+
+    /* ===================== SECTION STYLES ===================== */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(25, 123, 194, .08);
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
+    }
+
+    /* ===================== FEATURES SECTION ===================== */
+    #features {
+      padding: 6rem 1.5rem;
+      background: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #features::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -80px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(25, 123, 194, .07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .features-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: .8rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feat-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border: 1.5px solid rgba(0, 0, 0, .06);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      transform: scaleX(0);
+      transition: transform .35s;
+      transform-origin: left;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .feat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(25, 123, 194, .15);
+    }
+
+    .feat-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .feat-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .5rem;
+    }
+
+    .feat-desc {
+      font-size: .9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ===================== BENTO / DETAIL SECTIONS ===================== */
+    .detail-section {
+      padding: 5rem 1.5rem;
+      background: var(--white);
+    }
+
+    .detail-section.alt {
+      background: var(--light);
+    }
+
+    .detail-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .detail-wrap.reverse {
+      direction: rtl;
+    }
+
+    .detail-wrap.reverse>* {
+      direction: ltr;
+    }
+
+    .detail-title {
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .detail-text {
+      font-size: 1.02rem;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .detail-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-list li {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      font-size: .95rem;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .detail-list li i {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, .12);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .65rem;
+      flex-shrink: 0;
+    }
+
+    .detail-visual {
+      position: relative;
+    }
+
+    .detail-visual img {
+      border-radius: var(--radius-xl);
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      box-shadow: var(--shadow-md);
+    }
+
+    .float-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .15);
+      border: 1.5px solid rgba(0, 0, 0, .06);
+      max-width: 280px;
+      animation: floatCard 3.5s ease-in-out infinite;
+    }
+
+    .float-card.bottom-right {
+      bottom: -1.5rem;
+      right: -1.5rem;
+    }
+
+    .float-card.bottom-left {
+      bottom: -1.5rem;
+      left: -1.5rem;
+    }
+
+    @keyframes floatCard {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .float-card-header {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .8rem;
+      padding-bottom: .8rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .float-card-header img {
+      width: auto;
+      height: 18px;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .float-card-header span {
+      font-size: .78rem;
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    .float-card p {
+      font-size: .82rem;
+      line-height: 1.55;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .float-card .tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .4rem;
+    }
+
+    .float-card .tag-label {
+      font-size: .78rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .float-card .tag-value {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .float-card .tag-value.green {
+      color: var(--green);
+    }
+
+    .float-card .tag-value.blue {
+      color: var(--blue);
+    }
+
+    .pulse-btn {
+      display: inline-block;
+      margin-top: .6rem;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      border-radius: 999px;
+      padding: .3rem .9rem;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .pulse-btn:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    /* ===================== CTA BAND ===================== */
+    #cta-band {
+      padding: 5rem 1.5rem;
+      background: linear-gradient(135deg, #0e5a99 0%, #197bc2 50%, #1e9de8 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #cta-band::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .05);
+      pointer-events: none;
+    }
+
+    #cta-band::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      right: -60px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255, 196, 57, .1);
+      pointer-events: none;
+    }
+
+    .cta-band-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-band-inner h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .cta-band-inner p {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, .8);
+      margin-bottom: 2rem;
+      line-height: 1.65;
+    }
+
+    /* ===================== TRUST LOGOS ===================== */
+    #trust {
+      padding: 2.5rem 1.5rem;
+      background: var(--white);
+      border-top: 1px solid #f0f4f8;
+      border-bottom: 1px solid #f0f4f8;
+    }
+
+    .trust-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .trust-label {
+      font-size: .82rem;
+      font-weight: 700;
+      color: #b0b8c4;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    .trust-badge i {
+      color: var(--blue);
+      font-size: 1rem;
+    }
+
+    /* ===================== PROCESS / STEPS ===================== */
+    #process {
+      padding: 6rem 1.5rem;
+      background: var(--light);
+    }
+
+    .process-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 1.8rem;
+      border: 1.5px solid rgba(0, 0, 0, .06);
+      text-align: center;
+      position: relative;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 32px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      font-size: .8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(25, 123, 194, .4);
+    }
+
+    .step-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .5rem;
+    }
+
+    .step-desc {
+      font-size: .88rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ===================== FADE-IN SCROLL ANIMATION ===================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up:nth-child(2) {
+      transition-delay: .1s;
+    }
+
+    .fade-up:nth-child(3) {
+      transition-delay: .2s;
+    }
+
+    .fade-up:nth-child(4) {
+      transition-delay: .3s;
+    }
+
+    /* ===================== SHINE TEXT ===================== */
+    .shine-text {
+      position: relative;
+      display: inline;
+      align-items: center;
+      color: #197bc2;
+      overflow: hidden;
+    }
+
+    .shine-text::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .8), transparent);
+      transform: skewX(-20deg);
+      animation: shine 5s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -100%;
+      }
+
+      30% {
+        left: 120%;
+      }
+
+      100% {
+        left: 120%;
+      }
+    }
+
+    /* ===================== FEATURE CONTAINER ANIMATIONS ===================== */
+    .animated-text {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      font-size: 2.25rem;
+      font-weight: bold;
+      color: #197bc2;
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    .animated-text.active {
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform .6s ease, opacity .6s ease;
+    }
+
+    .animated-text.exit {
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform .6s ease, opacity .6s ease;
+    }
+
+    .wave-letter {
+      display: inline-block;
+      animation: waveIn .3s cubic-bezier(.33, 1, .68, 1) forwards;
+    }
+
+    .scale-in {
+      animation: scaleIn .4s ease-out forwards;
+    }
+
+    @keyframes waveIn {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* ===================== PRICING (SOFIA AI PLANS) ===================== */
+    .pricing-container {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .pricing-header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      margin-bottom: .5rem;
+      color: #111827;
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+    }
+
+    .pricing-header .pricing-sub {
+      font-size: 1.05rem;
+      color: #6B7280;
+      margin-bottom: .5rem;
+      line-height: 1.6;
+    }
+
+    .pricing-header .highlight {
+      color: #197bc2;
+    }
+
+    .billing-toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .billing-label {
+      font-size: .88rem;
+      font-weight: 700;
+      color: #6B7280;
+      cursor: pointer;
+      transition: color .2s;
+    }
+
+    .billing-label.active {
+      color: #111827;
+    }
+
+    html.dark .billing-label {
+      color: #9aa3b5;
+    }
+
+    html.dark .billing-label.active {
+      color: #e8edf5;
+    }
+
+    .billing-pill {
+      width: 52px;
+      height: 28px;
+      border-radius: 999px;
+      background: #197bc2;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background .3s;
+      flex-shrink: 0;
+    }
+
+    .billing-pill::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .billing-pill.yearly::after {
+      transform: translateX(24px);
+    }
+
+    .billing-save-tag {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: #dcfce7;
+      color: #15803d;
+      padding: .2rem .6rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    html.dark .billing-save-tag {
+      background: rgba(22, 101, 52, .4);
+      color: #a7f3d0;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+
+    @media(max-width: 900px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .plan-card {
+      position: relative;
+      border-radius: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform .3s, box-shadow .3s;
+      overflow: visible;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .plan-card.style-free {
+      background: #f0fdf4;
+      border: 2px solid #6ee7b7;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, .10);
+    }
+
+    .plan-card.style-standard {
+      background: #ffffff;
+      border: 1.5px solid #E5E7EB;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .07);
+    }
+
+    .plan-card.style-premium {
+      background: #393939;
+      border: 2.5px solid #10B981;
+      color: #fff;
+      box-shadow: 0 20px 60px rgba(25, 123, 194, .28);
+      transform: translateY(-8px);
+    }
+
+    .plan-card.style-premium:hover {
+      transform: translateY(-13px);
+    }
+
+    html.dark .plan-card.style-free {
+      background: #0f2718;
+      border-color: rgba(110, 231, 183, .3);
+    }
+
+    html.dark .plan-card.style-standard {
+      background: #1e2330;
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .3);
+    }
+
+    html.dark .plan-card.style-premium {
+      background: #0f1929;
+      border-color: #10B981;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: .35rem 1.2rem;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+    }
+
+    .plan-badge.green {
+      background: #10B981;
+      color: #fff;
+    }
+
+    .plan-badge.blue {
+      background: #197bc2;
+      color: #fff;
+    }
+
+    .plan-badge.gold {
+      background: #FFC439;
+      color: #111;
+    }
+
+    .plan-body {
+      padding: 2rem 1.75rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-card.style-premium .plan-body {
+      padding-top: 2.3rem;
+    }
+
+    .plan-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: .45rem;
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      color: #111827;
+    }
+
+    .plan-card.style-premium .plan-name {
+      color: #fff;
+    }
+
+    html.dark .plan-card.style-free .plan-name {
+      color: #e8edf5;
+    }
+
+    html.dark .plan-card.style-standard .plan-name {
+      color: #e8edf5;
+    }
+
+    .plan-description {
+      font-size: .88rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #6B7280;
+    }
+
+    .plan-card.style-premium .plan-description {
+      color: #94a3b8;
+    }
+
+    html.dark .plan-card.style-free .plan-description {
+      color: #4ade80;
+    }
+
+    html.dark .plan-card.style-standard .plan-description {
+      color: #9aa3b5;
+    }
+
+    .discount-chips {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.1rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .72rem;
+      font-weight: 800;
+      padding: .25rem .7rem;
+      border-radius: 999px;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .chip-off {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .chip-free {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .chip-incl {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .chip-studio {
+      background: #fce7f3;
+      color: #9d174d;
+    }
+
+    .plan-card.style-premium .chip-off {
+      background: #FFC439;
+      color: #111;
+    }
+
+    .plan-card.style-premium .chip-incl {
+      background: rgba(167, 243, 208, .15);
+      color: #6ee7b7;
+    }
+
+    .plan-card.style-premium .chip-studio {
+      background: rgba(249, 168, 212, .12);
+      color: #f9a8d4;
+    }
+
+    html.dark .chip-off {
+      background: rgba(254, 243, 199, .10);
+      color: #fbbf24;
+    }
+
+    html.dark .chip-free {
+      background: rgba(74, 222, 128, .10);
+      color: #4ade80;
+    }
+
+    html.dark .chip-incl {
+      background: rgba(167, 243, 208, .10);
+      color: #6ee7b7;
+    }
+
+    .pricing-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .price-original {
+      font-size: .95rem;
+      text-decoration: line-through;
+      color: #9CA3AF;
+      margin-bottom: .15rem;
+    }
+
+    .plan-card.style-premium .price-original {
+      color: #64748b;
+    }
+
+    html.dark .price-original {
+      color: #475569;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: flex-end;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .price-main {
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: #111827;
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+    }
+
+    .price-main.free-color {
+      color: #10B981;
+    }
+
+    .plan-card.style-premium .price-main {
+      color: #fff;
+    }
+
+    html.dark .plan-card.style-free .price-main {
+      color: #4ade80;
+    }
+
+    html.dark .plan-card.style-standard .price-main {
+      color: #e8edf5;
+    }
+
+    .price-period {
+      font-size: .85rem;
+      color: #6B7280;
+      font-weight: 500;
+      padding-bottom: .4rem;
+    }
+
+    .plan-card.style-premium .price-period {
+      color: #94a3b8;
+    }
+
+    html.dark .price-period {
+      color: #9aa3b5;
+    }
+
+    .price-note {
+      font-size: .8rem;
+      color: #9CA3AF;
+      margin-top: .5rem;
+      line-height: 1.55;
+    }
+
+    .plan-card.style-premium .price-note {
+      color: #fff;
+    }
+
+    html.dark .price-note {
+      color: #475569;
+    }
+
+    .discount-detail {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      flex-wrap: wrap;
+      font-size: .78rem;
+      color: #6B7280;
+      margin-top: .35rem;
+    }
+
+    .discount-detail .dd-pct {
+      font-weight: 800;
+      color: #10B981;
+    }
+
+    .plan-card.style-premium .discount-detail {
+      color: #94a3b8;
+    }
+
+    html.dark .discount-detail {
+      color: #9aa3b5;
+    }
+
+    .special-premium-note {
+      background: rgba(16, 185, 129, .12);
+      border-radius: 12px;
+      padding: .6rem .8rem;
+      margin: .8rem 0;
+      font-size: .78rem;
+      font-weight: 600;
+      text-align: center;
+      color: #166534;
+    }
+
+    .plan-card.style-premium .special-premium-note {
+      background: rgba(16, 185, 129, .18);
+      color: #6ee7b7;
+    }
+
+    .plan-cta {
+      display: block;
+      width: 100%;
+      padding: .9rem 1rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all .25s ease;
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      margin-bottom: 1.6rem;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .plan-cta.cta-blue {
+      background: #197bc2;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(25, 123, 194, .35);
+    }
+
+    .plan-cta.cta-blue:hover {
+      background: #37acff;
+      transform: translateY(-2px);
+    }
+
+    .plan-cta.cta-green {
+      background: #10B981;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, .35);
+    }
+
+    .plan-cta.cta-green:hover {
+      background: #059669;
+      transform: translateY(-2px);
+    }
+
+    .plan-cta.cta-outline {
+      background: transparent;
+      color: #197bc2;
+      border: 2px solid #197bc2;
+    }
+
+    .plan-cta.cta-outline:hover {
+      background: rgba(25, 123, 194, .06);
+      transform: translateY(-2px);
+    }
+
+    html.dark .plan-cta.cta-outline {
+      color: #37acff;
+      border-color: rgba(55, 172, 255, .45);
+    }
+
+    html.dark .plan-cta.cta-outline:hover {
+      background: rgba(55, 172, 255, .08);
+    }
+
+    .plan-divider {
+      height: 1px;
+      margin: 0 0 1.5rem;
+      background: #E5E7EB;
+    }
+
+    .plan-card.style-premium .plan-divider {
+      background: rgba(255, 255, 255, .10);
+    }
+
+    .plan-card.style-free .plan-divider {
+      background: #a7f3d0;
+    }
+
+    html.dark .plan-card.style-standard .plan-divider {
+      background: rgba(255, 255, 255, .06);
+    }
+
+    html.dark .plan-card.style-free .plan-divider {
+      background: rgba(74, 222, 128, .2);
+    }
+
+    .features-section-label {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #9CA3AF;
+      margin-bottom: .9rem;
+    }
+
+    .plan-card.style-premium .features-section-label {
+      color: #475569;
+    }
+
+    html.dark .features-section-label {
+      color: #334155;
+    }
+
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .65rem;
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: .18rem;
+    }
+
+    .feature-icon.inc {
+      background: #10B981;
+    }
+
+    .feature-icon.exc-std {
+      background: #F3F4F6;
+    }
+
+    .feature-icon.exc-free {
+      background: #d1fae5;
+    }
+
+    .feature-icon.exc-prem {
+      background: rgba(255, 255, 255, .07);
+    }
+
+    html.dark .feature-icon.exc-std {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .feature-icon svg {
+      width: .78rem;
+      height: .78rem;
+      stroke-width: 3;
+    }
+
+    .feature-icon.inc svg {
+      stroke: #fff;
+    }
+
+    .feature-icon.exc-std svg {
+      stroke: #D1D5DB;
+    }
+
+    .feature-icon.exc-free svg {
+      stroke: #6ee7b7;
+    }
+
+    .feature-icon.exc-prem svg {
+      stroke: #374151;
+    }
+
+    html.dark .feature-icon.exc-std svg {
+      stroke: #334155;
+    }
+
+    .feature-text {
+      font-size: .84rem;
+      line-height: 1.5;
+    }
+
+    .feature-text.inc-std {
+      color: #111827;
+      font-weight: 500;
+    }
+
+    .feature-text.inc-free {
+      color: #166534;
+      font-weight: 500;
+    }
+
+    .feature-text.inc-prem {
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+
+    .feature-text.exc-std {
+      color: #CBD5E1;
+      text-decoration: line-through;
+    }
+
+    .feature-text.exc-free {
+      color: #6ee7b7;
+      text-decoration: line-through;
+    }
+
+    .feature-text.exc-prem {
+      color: #334155;
+      text-decoration: line-through;
+    }
+
+    html.dark .feature-text.inc-std {
+      color: #e8edf5;
+    }
+
+    html.dark .feature-text.exc-std {
+      color: #334155;
+    }
+
+    html.dark .feature-text.inc-free {
+      color: #4ade80;
+    }
+
+    html.dark .feature-text.exc-free {
+      color: rgba(74, 222, 128, .35);
+    }
+
+    .plan-footer-note {
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px dashed #E5E7EB;
+      font-size: .78rem;
+      line-height: 1.6;
+      color: #9CA3AF;
+      font-style: italic;
+    }
+
+    .plan-card.style-premium .plan-footer-note {
+      border-top-color: rgba(255, 255, 255, .08);
+      color: #bbbbbb;
+    }
+
+    .plan-card.style-free .plan-footer-note {
+      border-top-color: #a7f3d0;
+      color: #4B7A5A;
+    }
+
+    html.dark .plan-footer-note {
+      color: #475569;
+      border-top-color: rgba(255, 255, 255, .06);
+    }
+
+    html.dark .plan-card.style-free .plan-footer-note {
+      color: #4ade80;
+      border-top-color: rgba(74, 222, 128, .2);
+    }
+
+    .pricing-footer {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .pricing-footer p {
+      font-size: .875rem;
+      color: #6B7280;
+    }
+
+    html.dark .pricing-footer p {
+      color: #9aa3b5;
+    }
+
+    html.dark #pricing {
+      background: #252b3b !important;
+    }
+
+    footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(18px);
+      padding: 1.5rem 2rem 2rem;
+      z-index: 999;
+      border-bottom: 1px solid rgba(0, 0, 0, .06);
+      box-shadow: var(--shadow-md);
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      padding: .5rem 0;
+      border-bottom: 1px solid #f0f4f8;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--blue);
+    }
+
+    @media(max-width: 1024px) {
+      .detail-wrap {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .detail-wrap.reverse {
+        direction: ltr;
+      }
+
+      .float-card.bottom-right {
+        right: 0;
+        bottom: -1rem;
+      }
+
+      .float-card.bottom-left {
+        left: 0;
+        bottom: -1rem;
+      }
+
+      .plans-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 480px) {
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .theme-toggle {
+      width: 44px;
+      height: 24px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background .35s;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 3px;
+    }
+
+    .theme-toggle::after {
+      content: '☀️';
+      font-size: .7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+      transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+      line-height: 1;
+    }
+
+    .dark .theme-toggle {
+      background: #3b4a6b;
+    }
+
+    .dark .theme-toggle::after {
+      content: '🌙';
+      transform: translateX(20px);
+    }
+
+    html.dark {
+      --white: #1e2330;
+      --light: #252b3b;
+      --dark: #e8edf5;
+      --gray: #9aa3b5;
+      --shadow-sm: 0 2px 12px rgba(0, 0, 0, .25);
+      --shadow-md: 0 8px 32px rgba(0, 0, 0, .35);
+      --shadow-lg: 0 24px 64px rgba(0, 0, 0, .45);
+    }
+
+    html.dark body {
+      background: #1e2330;
+      color: #e8edf5;
+    }
+
+    html.dark header {
+      background: rgba(30, 35, 48, 0.90);
+      border-bottom-color: rgba(255, 255, 255, .06);
+    }
+
+    html.dark .nav-links a {
+      color: #9aa3b5;
+    }
+
+    html.dark .nav-links a:hover {
+      color: #37acff;
+    }
+
+    html.dark .btn-outline {
+      border-color: rgba(55, 172, 255, .55);
+      color: #37acff;
+    }
+
+    html.dark .btn-outline:hover {
+      background: rgba(55, 172, 255, .12);
+      color: #37acff;
+    }
+
+    html.dark .hamburger i {
+      color: #9aa3b5;
+    }
+
+    html.dark .theme-toggle {
+      background: #3b4a6b;
+    }
+
+    html.dark .theme-toggle::after {
+      content: '🌙';
+      transform: translateX(20px);
+    }
+
+    html.dark .mobile-menu {
+      background: rgba(30, 35, 48, .97);
+      border-bottom-color: rgba(255, 255, 255, .06);
+    }
+
+    html.dark .mobile-menu a {
+      color: #e8edf5;
+      border-bottom-color: rgba(255, 255, 255, .06);
+    }
+
+    html.dark #hero {
+      background: #1e2330;
+    }
+
+    html.dark #hero::before {
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 90%, rgba(25, 123, 194, .12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(255, 196, 57, .07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 60% at 90% 70%, rgba(16, 185, 129, .07) 0%, transparent 50%);
+    }
+
+    html.dark #hero::after {
+      background-image: radial-gradient(rgba(55, 172, 255, .10) 1.2px, transparent 1.2px);
+    }
+
+    html.dark .hero-badge {
+      background: rgba(55, 172, 255, .10);
+      border-color: rgba(55, 172, 255, .22);
+      color: #37acff;
+    }
+
+    html.dark .hero-word {
+      color: #e8edf5;
+    }
+
+    html.dark .hero-word.sofia-word {
+      color: #37acff;
+    }
+
+    html.dark .hero-sub {
+      color: #9aa3b5;
+    }
+
+    html.dark .stat-number {
+      color: #e8edf5;
+    }
+
+    html.dark .stat-label {
+      color: #9aa3b5;
+    }
+
+    html.dark .scroll-mouse {
+      border-color: rgba(55, 172, 255, .3);
+    }
+
+    html.dark .hero-scroll-hint {
+      color: #9aa3b5;
+    }
+
+    html.dark #trust {
+      background: #252b3b;
+      border-color: rgba(255, 255, 255, .06);
+    }
+
+    html.dark .trust-label {
+      color: #5a6480;
+    }
+
+    html.dark .trust-badge {
+      color: #9aa3b5;
+    }
+
+    html.dark #features {
+      background: #252b3b;
+    }
+
+    html.dark .feat-card {
+      background: #1e2330;
+      border-color: rgba(255, 255, 255, .07);
+    }
+
+    html.dark .feat-title {
+      color: #e8edf5;
+    }
+
+    html.dark .feat-desc {
+      color: #9aa3b5;
+    }
+
+    html.dark .section-title {
+      color: #e8edf5;
+    }
+
+    html.dark .section-sub {
+      color: #9aa3b5;
+    }
+
+    html.dark .section-tag {
+      background: rgba(55, 172, 255, .10);
+      color: #37acff;
+    }
+
+    html.dark .detail-section {
+      background: #1e2330;
+    }
+
+    html.dark .detail-section.alt {
+      background: #252b3b;
+    }
+
+    html.dark .detail-title {
+      color: #e8edf5;
+    }
+
+    html.dark .detail-text {
+      color: #9aa3b5;
+    }
+
+    html.dark .detail-list li {
+      color: #e8edf5;
+    }
+
+    html.dark .float-card {
+      background: #2a3145;
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+    }
+
+    html.dark .float-card-header {
+      border-bottom-color: rgba(255, 255, 255, .08);
+    }
+
+    html.dark .float-card-header span {
+      color: #9aa3b5;
+    }
+
+    html.dark .float-card p {
+      color: #e8edf5;
+    }
+
+    html.dark .float-card .tag-label {
+      color: #9aa3b5;
+    }
+
+    html.dark .float-card .tag-value {
+      color: #e8edf5;
+    }
+
+    html.dark #process {
+      background: #252b3b;
+    }
+
+    html.dark .step-card {
+      background: #1e2330;
+      border-color: rgba(255, 255, 255, .07);
+    }
+
+    html.dark .step-title {
+      color: #e8edf5;
+    }
+
+    html.dark .step-desc {
+      color: #9aa3b5;
+    }
+
+    html.dark footer {
+      background: #1a1f2e;
+      border-top-color: rgba(255, 255, 255, .06);
+    }
+
+    html.dark footer h3 {
+      color: #e8edf5 !important;
+    }
+
+    html.dark footer a,
+    html.dark footer span,
+    html.dark footer button {
+      color: #9aa3b5 !important;
+    }
+
+    html.dark ::-webkit-scrollbar-track {
+      background: #1e2330;
+    }
+
+    html.dark .shine-text::after {
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .12), transparent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="navbar">
+    <a class="nav-logo" href="#">
+      <img src="https://imagenes.numart.com.co/SOFIA-light-version.png" alt="SOFIA Logo">
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#features">Funciones</a></li>
+        <li><a href="#process">¿Cómo funciona?</a></li>
+        <li><a href="#pricing">Planes y precios</a></li>
+        <li><a href="https://help.numart.com.co">Soporte</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <!--<a href="https://portal.numart.com.co/session/login" class="btn-outline">
+        <i class="fas fa-user"></i> Iniciar sesión
+      </a>-->
+      <a href="#pricing" class="btn-primary">
+        ¡Empieza hoy! <i class="fas fa-arrow-right"></i>
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"></button>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <i class="fas fa-bars" style="font-size:1.2rem; color:var(--gray);"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Funciones</a>
+    <a href="#process">¿Cómo funciona?</a>
+    <a href="#pricing">Planes y precios</a>
+    <a href="https://help.numart.com.co">Soporte</a>
+    <a href="https://portal.numart.com.co/session/login" style="color:var(--blue);">Iniciar sesión</a>
+  </div>
+
+  <section id="hero">
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-inner">
+      <!--<div class="hero-badge">
+        <span class="dot"></span>
+        Sistema de Optimización Financiera con IA
+      </div>-->
+
+      <div class="hero-headline" id="heroHeadline">
+        <span class="hero-word" data-delay="400">Con</span>
+        <span class="shine-text hero-word sofia-word" data-delay="600">SOFIA</span>
+        <span class="hero-word" data-delay="800">tu</span>
+        <span class="hero-word" data-delay="1000">negocio</span>
+        <span class="hero-word" data-delay="1200">es</span>
+        <span id="feature-container" style="display:inline-flex;align-items:center;"></span>
+      </div>
+
+      <p class="hero-sub">
+        La plataforma inteligente que digitaliza tu contabilidad, facturas, inventario y nómina — todo en un solo lugar.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn-primary btn-primary-lg">
+          Comenzar gratis
+        </a>
+        <a href="#features" class="btn-outline" style="padding:.8rem 2rem; font-size:1rem;">
+          <i class="fas fa-play-circle"></i> Ver funciones
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">+2<span>K</span></div>
+          <div class="stat-label">Empresas activas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">99<span>%</span></div>
+          <div class="stat-label">Uptime garantizado</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24<span>/7</span></div>
+          <div class="stat-label">Soporte disponible</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">0<span>s</span></div>
+          <div class="stat-label">Setup inicial</div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint">
+        <div class="scroll-mouse"></div>
+        Scroll para explorar
+      </div>
+    </div>
+  </section>
+
+  <div id="trust">
+    <div class="trust-wrap">
+      <span class="trust-label">Con tecnología de</span>
+      <div class="trust-badge"><i class="fas fa-shield-alt"></i> Seguridad bancaria</div>
+      <div class="trust-badge"><i class="fas fa-check-circle"></i> Validado DIAN</div>
+      <div class="trust-badge"><i class="fas fa-cloud"></i> 100% en la nube</div>
+      <div class="trust-badge"><i class="fas fa-bolt"></i> Tiempo real</div>
+      <div class="trust-badge"><i class="fas fa-lock"></i> Datos cifrados</div>
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="features-wrap">
+      <div class="features-header fade-up">
+        <div class="section-tag"><i class="fas fa-star"></i> Funcionalidades</div>
+        <h2 class="section-title">Todo lo que tu negocio necesita,<br><span class="shine-text">en un solo lugar</span>
+        </h2>
+        <p class="section-sub">SOFIA integra cada aspecto financiero de tu empresa con inteligencia artificial.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feat-card fade-up">
+          <div class="feat-icon" style="background:rgba(25,123,194,.10); color:var(--blue);">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="feat-title">Reportes Inteligentes</h3>
+          <p class="feat-desc">Al ingresar, SOFIA analiza tu negocio y genera un resumen financiero completo con
+            recomendaciones automáticas.</p>
+        </div>
+
+        <div class="feat-card fade-up">
+          <div class="feat-icon" style="background:rgba(16,185,129,.10); color:var(--green);">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <h3 class="feat-title">Facturas Electrónicas</h3>
+          <p class="feat-desc">Organiza y extrae información de facturas automáticamente. Sin digitación manual, sin
+            errores.</p>
+        </div>
+
+        <div class="feat-card fade-up">
+          <div class="feat-icon" style="background:rgba(255,196,57,.15); color:#d97706;">
+            <i class="fas fa-boxes"></i>
+          </div>
+          <h3 class="feat-title">Inventario en Tiempo Real</h3>
+          <p class="feat-desc">Consulta tus bodegas, productos con bajo stock y movimientos con solo preguntarle a
+            SOFIA.</p>
+        </div>
+
+        <div class="feat-card fade-up">
+          <div class="feat-icon" style="background:rgba(139,92,246,.10); color:#7c3aed;">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <h3 class="feat-title">Contabilidad Automática</h3>
+          <p class="feat-desc">Registro contable automático. Genera estados financieros, balance general y P&G sin
+            esfuerzo.</p>
+        </div>
+
+        <div class="feat-card fade-up">
+          <div class="feat-icon" style="background:rgba(239,68,68,.10); color:#dc2626;">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="feat-title">Sistema POS & Ventas</h3>
+          <p class="feat-desc">Punto de venta rápido con control de inventario, múltiples cajas y reportes de ventas por
+            categoría.</p>
+        </div>
+
+        <div class="feat-card fade-up">
+          <div class="feat-icon" style="background:rgba(6,182,212,.10); color:#0891b2;">
+            <i class="fas fa-plug"></i>
+          </div>
+          <h3 class="feat-title">API de Integración</h3>
+          <p class="feat-desc">Conecta SOFIA con tus herramientas favoritas. Accede a todos los datos de tu negocio vía
+            API.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="detail-wrap">
+      <div class="detail-content fade-up">
+        <div class="section-tag"><i class="fas fa-magic"></i> IA al servicio tuyo</div>
+        <h2 class="detail-title">Reportes inteligentes con análisis <span class="shine-text">automático</span></h2>
+        <p class="detail-text">Al ingresar al sistema, SOFIA te muestra un resumen inteligente de tu negocio: ventas,
+          margen neto, clientes activos y recomendaciones estratégicas — todo generado en segundos.</p>
+        <ul class="detail-list">
+          <li><i class="fas fa-check"></i> Resumen financiero al iniciar sesión</li>
+          <li><i class="fas fa-check"></i> Recomendaciones automáticas de acción</li>
+          <li><i class="fas fa-check"></i> Visualización de KPIs clave del negocio</li>
+          <li><i class="fas fa-check"></i> Exportable en Excel y PDF</li>
+        </ul>
+        <a href="#pricing" class="btn-primary btn-primary-lg">Pruébalo ahora <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="detail-visual fade-up">
+        <img
+          src="https://png.pngtree.com/thumb_back/fh260/background/20240720/pngtree-supermarket-grocery-store-aisle-and-shelves-blurred-background-image_15896050.jpg"
+          alt="Reportes SOFIA">
+        <div class="float-card bottom-right" style="animation-delay:.5s;">
+          <div class="float-card-header">
+            <img src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/SOFIA-pictograma-nocolor.png" alt="SOFIA">
+            <span>Generado por SOFIA</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Ventas del mes</span><span
+              class="tag-value green">$50.000.000</span></div>
+          <div class="tag-row"><span class="tag-label">Clientes activos</span><span class="tag-value blue">850</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Margen neto</span><span class="tag-value green">43%</span></div>
+          <span class="pulse-btn">Ver detalles</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section alt">
+    <div class="detail-wrap reverse">
+      <div class="detail-content fade-up">
+        <div class="section-tag"><i class="fas fa-file-alt"></i> Documentos</div>
+        <h2 class="detail-title">Organiza documentos <span class="shine-text">automáticamente</span></h2>
+        <p class="detail-text">SOFIA analiza tus facturas electrónicas y documentos contables, extrae ítems, identifica
+          valores, impuestos y conceptos, y los organiza sin que tengas que digitarlos manualmente.</p>
+        <ul class="detail-list">
+          <li><i class="fas fa-check"></i> Lectura automática de facturas PDF</li>
+          <li><i class="fas fa-check"></i> Clasificación por categoría y proveedor</li>
+          <li><i class="fas fa-check"></i> Detección de impuestos y descuentos</li>
+          <li><i class="fas fa-check"></i> Historial completo de documentos</li>
+        </ul>
+        <a href="#pricing" class="btn-primary btn-primary-lg">Empezar gratis <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="detail-visual fade-up">
+        <img src="https://imagenes.numart.com.co/main-web-2.jpg" alt="Documentos SOFIA">
+        <div class="float-card bottom-left" style="animation-delay:1s;">
+          <div class="float-card-header">
+            <i class="fas fa-check-circle" style="color:var(--green);font-size:1rem;"></i>
+            <span>Documento procesado</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Electrónica</span><span class="tag-value green">+$698.265</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Papelería</span><span class="tag-value blue">+$405.792</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Joyería</span><span class="tag-value green">+$503.842</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="detail-wrap">
+      <div class="detail-content fade-up">
+        <div class="section-tag"><i class="fas fa-warehouse"></i> Inventario</div>
+        <h2 class="detail-title">Tu inventario al <span class="shine-text">instante</span></h2>
+        <p class="detail-text">SOFIA analiza tus bodegas y productos para mostrarte un resumen claro de tu inventario en
+          segundos. Solo pídeselo.</p>
+        <ul class="detail-list">
+          <li><i class="fas fa-check"></i> Cantidad de productos por bodega</li>
+          <li><i class="fas fa-check"></i> Alertas de productos con bajo stock</li>
+          <li><i class="fas fa-check"></i> Historial de movimientos</li>
+          <li><i class="fas fa-check"></i> Bodegas ilimitadas (Plan Premium)</li>
+        </ul>
+        <a href="#pricing" class="btn-primary btn-primary-lg">Ver planes <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="detail-visual fade-up">
+        <img
+          src="https://png.pngtree.com/thumb_back/fh260/background/20240720/pngtree-supermarket-grocery-store-aisle-and-shelves-blurred-background-image_15896050.jpg"
+          alt="Inventario SOFIA">
+        <div class="float-card bottom-right" style="animation-delay:.8s;">
+          <div class="float-card-header">
+            <img src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/SOFIA-pictograma-nocolor.png" alt="SOFIA">
+            <span>Inventario — Bodega A</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Total productos</span><span class="tag-value blue">1.248</span>
+          </div>
+          <div class="tag-row"><span class="tag-label">Bajo stock</span><span class="tag-value"
+              style="color:#ef4444;">12 items</span></div>
+          <div class="tag-row"><span class="tag-label">Valor total</span><span
+              class="tag-value green">$84.200.000</span></div>
+          <span class="pulse-btn">Ver bodega</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="process-wrap">
+      <div class="process-header fade-up">
+        <div class="section-tag"><i class="fas fa-map-signs"></i> Proceso</div>
+        <h2 class="section-title">Empieza en minutos,<br>no en semanas</h2>
+        <p class="section-sub">Configurar SOFIA para tu negocio es rápido, intuitivo y sin conocimientos técnicos.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card fade-up">
+          <span class="step-number">1</span>
+          <span class="step-icon">🏢</span>
+          <h3 class="step-title">Crea tu empresa</h3>
+          <p class="step-desc">Registra los datos de tu negocio y configura tu perfil fiscal en menos de 3 minutos.</p>
+        </div>
+        <div class="step-card fade-up">
+          <span class="step-number">2</span>
+          <span class="step-icon">⚙️</span>
+          <h3 class="step-title">Configura módulos</h3>
+          <p class="step-desc">Activa inventario, contabilidad, POS y nómina según lo que necesites hoy.</p>
+        </div>
+        <div class="step-card fade-up">
+          <span class="step-number">3</span>
+          <span class="step-icon">📦</span>
+          <h3 class="step-title">Importa tu data</h3>
+          <p class="step-desc">Sube tus productos, proveedores y clientes desde Excel. SOFIA los organiza
+            automáticamente.</p>
+        </div>
+        <div class="step-card fade-up">
+          <span class="step-number">4</span>
+          <span class="step-icon">🚀</span>
+          <h3 class="step-title">¡Listo para vender!</h3>
+          <p class="step-desc">Emite facturas electrónicas, gestiona inventario y consulta reportes desde el primer día.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta-band">
+    <div class="cta-band-inner fade-up">
+      <h2>¿Listo para transformar tu negocio?</h2>
+      <p>Únete a miles de empresas que ya confían en SOFIA para gestionar sus finanzas con inteligencia artificial.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#pricing" class="btn-primary btn-primary-lg" style="background:#fff;color:var(--blue);">
+          <i class="fas fa-rocket"></i> Empezar ahora
+        </a>
+        <a href="https://help.numart.com.co" class="btn-ghost">
+          <i class="fas fa-headset"></i> Hablar con ventas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" style="background:#f8fafc; padding: 1rem 0;">
+    <div class="pricing-container">
+
+      <div class="pricing-header fade-up">
+        <h1>Planes de IA <span class="highlight">SOFIA</span></h1>
+        <p class="pricing-sub">Elige el nivel de inteligencia artificial que necesita tu negocio.</p>
+      </div>
+
+      <div class="billing-toggle-wrap fade-up">
+        <span class="billing-label active" id="lblMonthly">Mensual</span>
+        <button class="billing-pill" id="billingPill" aria-label="Cambiar ciclo de facturación"></button>
+        <span class="billing-label" id="lblYearly">Anual</span>
+        <span class="billing-save-tag">🎉 Ahorra hasta 20%</span>
+      </div>
+
+      <div class="plans-grid" id="plansGrid"></div>
+
+      <div class="pricing-footer fade-up">
+        <p>* Los precios mostrados son en COP. Plan Base disponible solo para clientes con un plan activo de Numart.<br>
+          <u><a href="#" style="color:#197bc2;">Términos y condiciones aplican.</a></u>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="max-w-7xl mx-auto px-6 py-12" style="max-width:1280px;margin:0 auto;padding:3rem 1.5rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:2rem;margin-bottom:2rem;">
+        <div>
+          <a href="https://numart.com.co"><img style="width:auto;height:35px;margin-bottom:15px"
+              src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/footer-logo.png" alt="Numart Logo"></a>
+          <a href="https://sofia.numart.com.co"><img style="width:auto;height:35px;"
+              src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/SOFIA-pictograma-nocolor.png"
+              alt="SOFIA Pictograma"></a>
+        </div>
+        <div>
+          <h3 style="font-weight:600;color:#111827;font-size:.875rem;margin-bottom:1rem;">Numart</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.75rem;">
+            <li><a href="https://jobs.numart.com.co/vacantes"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">SOFIA</a></li>
+            <li><a href="https://numart.com.co/quienes-somos"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Acerca de</a></li>
+            <li><a href="https://jobs.numart.com.co/vacantes"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Empleos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-weight:600;color:#111827;font-size:.875rem;margin-bottom:1rem;">Soporte</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.75rem;">
+            <li><a href="https://help.numart.com.co"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Centro de ayuda</a></li>
+            <li><a href="https://numart.com.co/soporte"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Contáctanos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-weight:600;color:#111827;font-size:.875rem;margin-bottom:1rem;">Desarrolladores</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.75rem;">
+            <li><a href="https://developer.numart.com.co/"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">API Numart</a></li>
+            <li><a href="https://comunidad.numart.com.co/"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Comunidad</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-weight:600;color:#111827;font-size:.875rem;margin-bottom:1rem;">Empresas</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.75rem;">
+            <li><a href="https://numart.com.co/empresas"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Business</a></li>
+            <li><a href="https://numart.com.co/nuestros-socios"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Socios</a></li>
+            <li><a href="https://marketplace.numart.com.co/"
+                style="color:#6B7280;font-size:.875rem;text-decoration:none;">Marketplace</a></li>
+          </ul>
+        </div>
+      </div>
+      <div
+        style="padding-top:2rem;border-top:1px solid #e5e7eb;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;font-size:.875rem;color:#6B7280;">
+        <div style="display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;">
+          <span>© 2026 Numart</span>
+          <a href="https://help.numart.com.co/privacidad" style="color:#6B7280;text-decoration:none;">Privacidad</a>
+          <a href="https://help.numart.com.co/terminos-y-condiciones"
+            style="color:#6B7280;text-decoration:none;">Términos y condiciones</a>
+          <a href="https://legal.numart.com.co/" style="color:#6B7280;text-decoration:none;">Legales</a>
+        </div>
+        <button style="background:none;border:none;cursor:pointer;color:#6B7280;font-family:inherit;">🇪🇸
+          Español</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      const words = document.querySelectorAll('.hero-word');
+      words.forEach(word => {
+        const delay = parseInt(word.dataset.delay || 0, 10);
+        setTimeout(() => {
+          word.classList.add('loaded');
+        }, delay);
+      });
+    });
+  </script>
+
+  <script>
+    const fadeObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+  </script>
+
+  <script>
+    const features = [
+      { text: 'rápido', bgColor: 'bg-green-100', textColor: 'text-green-600', icon: `<img src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/Rapido.gif" alt="rápido" width="56" height="56" class="inline-block mr-3" />` },
+      { text: 'preciso', bgColor: 'bg-purple-100', textColor: 'text-purple-600', icon: `<img src="https://pub-03d0689f896f4c1b96c0eadaaff42219.r2.dev/Dardo.gif" alt="preciso" width="56" height="56" class="inline-block mr-3" />` },
+      { text: 'seguro', bgColor: 'bg-blue-100', textColor: 'text-blue-600', icon: `<img src="https://imagenes.numart.com.co/Candado.gif" alt="seguro" width="56" height="56" class="inline-block mr-3" />` },
+      { text: 'inteligente', bgColor: 'bg-orange-100', textColor: 'text-orange-600', icon: `<img src="https://imagenes.numart.com.co/Cerebro.gif" alt="inteligente" width="56" height="56" class="inline-block mr-3" />` }
+    ];
+
+    let currentFeatureIndex = 0;
+
+    function createFeatureElement(feature) {
+      const container = document.getElementById('feature-container');
+      const letters = feature.text.split('');
+      const featureDiv = document.createElement('div');
+      featureDiv.style.cssText = `gap:10px;display:flex;justify-content:center;align-items:center;background:var(--feat-bg, #f0fdf4);border-radius:999px;padding:0.5rem 1.5rem;`;
+      const bgMap = { 'bg-green-100': '#dcfce7', 'bg-purple-100': '#f3e8ff', 'bg-blue-100': '#dbeafe', 'bg-orange-100': '#ffedd5' };
+      const textMap = { 'text-green-600': '#16a34a', 'text-purple-600': '#9333ea', 'text-blue-600': '#2563eb', 'text-orange-600': '#ea580c' };
+      featureDiv.style.background = bgMap[feature.bgColor] || '#f0fdf4';
+      const iconSpan = document.createElement('span');
+      iconSpan.innerHTML = feature.icon;
+      featureDiv.appendChild(iconSpan);
+      const textSpan = document.createElement('span');
+      const color = textMap[feature.textColor] || '#16a34a';
+      letters.forEach((letter, index) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.textContent = letter;
+        letterSpan.className = 'wave-letter';
+        letterSpan.style.fontFamily = "'Plus Jakarta Sans', 'Outfit', sans-serif";
+        letterSpan.style.fontWeight = '800';
+        letterSpan.style.fontSize = 'clamp(2.2rem, 4.5vw, 3.5rem)';
+        letterSpan.style.color = color;
+        letterSpan.style.animationDelay = `${0.15 + index * 0.055}s`;
+        letterSpan.style.opacity = '0';
+        textSpan.appendChild(letterSpan);
+      });
+      featureDiv.appendChild(textSpan);
+      container.innerHTML = '';
+      container.appendChild(featureDiv);
+    }
+
+    function rotateFeature() {
+      currentFeatureIndex = (currentFeatureIndex + 1) % features.length;
+      createFeatureElement(features[currentFeatureIndex]);
+    }
+
+    setTimeout(() => {
+      createFeatureElement(features[0]);
+      setInterval(rotateFeature, 5000);
+    }, 1400);
+  </script>
+
+  <script>
+    (function () {
+      const SOFIA_TIERS = {
+        base: {
+          name: 'SOFIA Base',
+          benefits: [
+            'Consultas contables básicas',
+            'Ayuda dentro del software',
+            'Explicación de impuestos',
+            'Asistencia en facturación',
+            'Ayuda sobre reportes',
+            'Sin memoria personalizada'
+          ]
+        },
+        smart: {
+          name: 'SOFIA Smart',
+          benefits: [
+            'Todo lo de SOFIA Base',
+            'Memoria corta de sesión',
+            'Guarda preferencias del usuario',
+            'Aprende nombres frecuentes',
+            'Historial inteligente',
+            'Sugerencias automáticas'
+          ]
+        },
+        studio: {
+          name: 'SOFIA Studio',
+          benefits: [
+            'Todo lo de SOFIA Smart',
+            'Personalización completa',
+            'Memoria empresarial avanzada',
+            'Instrucciones personalizadas',
+            'Reglas internas de negocio',
+            'Automatizaciones',
+            'Aprende procesos de la empresa',
+            'Mayor capacidad de procesamiento'
+          ]
+        }
+      };
+
+      const PLANS = [
+        {
+          type: 'style-premium',
+          badge: { text: 'Poder total', color: 'gold' },
+          name: 'SOFIA Studio',
+          description: 'Personalización completa, memoria empresarial avanzada, automatizaciones. Máxima potencia.',
+          chips: [],
+          pricing: { isFree: false, monthlyFull: 69900, discountPct: 100, discountMonths: 1, annualFull: 670000, annualDiscPct: 20, specialPremiumPrice: 19900 },
+          features: SOFIA_TIERS.studio.benefits.map(text => ({ text, included: true })),
+          cta: { text: 'Actualizar a Studio', cls: 'cta-green' },
+          footerNote: 'El precio especial de $19.900/mes aplica para suscriptores del Plan Premium de Numart. Contáctanos para validar.',
+          specialNote: 'Si tienes Plan Premium de Numart, paga solo $19.900/mes adicionales por SOFIA Studio'
+        },
+        {
+          type: 'style-standard',
+          badge: { text: 'Recomendado', color: 'blue' },
+          name: 'SOFIA Smart',
+          description: 'Memoria de sesión, aprende preferencias, sugerencias automáticas. Ideal para equipos que buscan eficiencia.',
+          chips: [{ text: 'Incluido en Plan PREMIUM', cls: 'chip-off' }],
+          pricing: { isFree: false, monthlyFull: 24900, discountPct: 50, discountMonths: 1, annualFull: 239000, annualDiscPct: 20 },
+          features: SOFIA_TIERS.smart.benefits.map(text => ({ text, included: true })),
+          cta: { text: 'Contratar Smart', cls: 'cta-blue' },
+          footerNote: 'Incluye todas las funcionalidades de SOFIA Base.',
+          specialNote: null
+        },
+        {
+          type: 'style-free',
+          badge: { text: 'Gratis con Numart', color: 'green' },
+          name: 'SOFIA Base',
+          description: 'Asistente básico para consultas contables, facturación y reportes. Requiere tener un plan activo de Numart.',
+          chips: [{ text: 'Requerido: Plan Lite o PYME', cls: 'chip-incl' }],
+          pricing: { isFree: true, monthlyFull: null, discountPct: 0, discountMonths: 0, annualFull: null, annualDiscPct: 0 },
+          features: SOFIA_TIERS.base.benefits.map(text => ({ text, included: true })),
+          cta: { text: 'Activar con Numart', cls: 'cta-green' },
+          footerNote: 'Disponible solo para clientes con un plan de Numart activo.',
+          specialNote: null
+        }
+
+
+      ];
+
+      const fmt = n => n.toLocaleString('es-CO');
+      const SVG_CHECK = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`;
+
+      function iconCls(type, included) {
+        if (included) return 'inc';
+        if (type === 'style-free') return 'exc-free';
+        if (type === 'style-premium') return 'exc-prem';
+        return 'exc-std';
+      }
+
+      function textCls(type, included) {
+        if (included) {
+          if (type === 'style-free') return 'inc-free';
+          if (type === 'style-premium') return 'inc-prem';
+          return 'inc-std';
+        }
+        if (type === 'style-free') return 'exc-free';
+        if (type === 'style-premium') return 'exc-prem';
+        return 'exc-std';
+      }
+
+      function calcPrice(p, isYearly) {
+        if (p.isFree) return null;
+        const full = isYearly ? p.annualFull : p.monthlyFull;
+        const pct = isYearly ? p.annualDiscPct : p.discountPct;
+        const promo = Math.round(full * (1 - pct / 100));
+        return { full, promo, pct, months: p.discountMonths, isYearly };
+      }
+
+      function renderCard(plan, isYearly) {
+        const t = plan.type;
+        const badgeHTML = plan.badge ? `<div class="plan-badge ${plan.badge.color}">${plan.badge.text}</div>` : '';
+        const chipsHTML = plan.chips.length ? `<div class="discount-chips">${plan.chips.map(c => `<span class="chip ${c.cls}">${c.text}</span>`).join('')}</div>` : '';
+
+        let pricingHTML;
+        if (plan.pricing.isFree) {
+          pricingHTML = `
+          <div class="pricing-block">
+            <div class="price-row">
+              <span class="price-main free-color">$0*</span>
+              <span class="price-period">/ mes</span>
+            </div>
+            <p class="price-note">Sin tarjeta. Para clientes de Numart.</p>
+          </div>`;
+        } else {
+          const pr = calcPrice(plan.pricing, isYearly);
+          const periodLabel = isYearly
+            ? `<span class="dd-pct">${pr.pct}% OFF</span> · primer año`
+            : `<span class="dd-pct">${pr.pct}% OFF</span> · primeros ${pr.months} meses`;
+          const afterNote = isYearly
+            ? `Facturado anualmente. Después $${fmt(pr.full)}/año.`
+            : `Luego $${fmt(pr.full)}/mes. Sin contratos de permanencia.`;
+          pricingHTML = `
+          <div class="pricing-block">
+            <div class="price-original">$ ${fmt(pr.full)}</div>
+            <div class="price-row">
+              <span class="price-main">$ ${fmt(pr.promo)}*</span>
+              <span class="price-period">/ mes</span>
+            </div>
+            <div class="discount-detail">${periodLabel}</div>
+            <p class="price-note">${afterNote}</p>
+          </div>`;
+          if (plan.specialNote) {
+            pricingHTML += `<div class="special-premium-note">${plan.specialNote}</div>`;
+          }
+        }
+
+        const featuresHTML = plan.features.map(f => `
+        <div class="feature-item">
+          <div class="feature-icon ${iconCls(t, f.included)}">${f.included ? SVG_CHECK : ''}</div>
+          <span class="feature-text ${textCls(t, f.included)}">${f.text}</span>
+        </div>`).join('');
+
+        const footerNoteHTML = plan.footerNote ? `<div class="plan-footer-note">${plan.footerNote}</div>` : '';
+
+        return `
+        <div class="plan-card ${t}">
+          ${badgeHTML}
+          <div class="plan-body">
+            <h3 class="plan-name">${plan.name}</h3>
+            <p class="plan-description">${plan.description}</p>
+            ${chipsHTML}
+            ${pricingHTML}
+            <button class="plan-cta ${plan.cta.cls}" onclick="handlePlanClick('${plan.name}')">${plan.cta.text}</button>
+            <div class="plan-divider"></div>
+            <div class="features-section-label">Características de IA</div>
+            <div class="features-list">${featuresHTML}</div>
+            ${footerNoteHTML}
+          </div>
+        </div>`;
+      }
+
+      let isYearly = false;
+      function renderAll() {
+        const grid = document.getElementById('plansGrid');
+        if (!grid) return;
+        grid.innerHTML = PLANS.map(p => renderCard(p, isYearly)).join('');
+      }
+
+
+
+    window.handlePlanClick = function (name) {
+
+  const planMap = {
+    "SOFIA Base": {
+      id: 1,
+      plan: "Base",
+      monthly: 0,
+      yearly: 0
+    },
+    "SOFIA Smart": {
+      id: 2,
+      plan: "Smart",
+      monthly: 12450,
+      yearly: 191200 // ejemplo
+    },
+    "SOFIA Studio": {
+      id: 3,
+      plan: "Studio",
+      monthly: 19900,
+      yearly: 536000 // ejemplo
+    }
+  };
+
+  const sel = planMap[name];
+
+  if (!sel) return;
+
+  // toma el precio según el selector actual
+  const finalPrice = isYearly
+    ? sel.yearly
+    : sel.monthly;
+
+  const token = btoa(JSON.stringify({
+    pkg: sel.id,
+    plan: sel.plan,
+    price: finalPrice,
+    billing: isYearly ? "yearly" : "monthly",
+    ts: Date.now()
+  }))
+  .replace(/=/g,'')
+  .replace(/\+/g,'-')
+  .replace(/\//g,'_');
+
+  const sessionId =
+    'cs_live_' +
+    [...Array(40)]
+    .map(() =>
+      'abcdefghijklmnopqrstuvwxyzABCDEF0123456789'
+      [Math.floor(Math.random()*42)]
+    )
+    .join('');
+
+  window.location.href =
+    `https://pay.numart.com.co/checkout/pay/?sid=${sessionId}#${token}`;
+};
+
+      const pill = document.getElementById('billingPill');
+      const lblMo = document.getElementById('lblMonthly');
+      const lblYr = document.getElementById('lblYearly');
+      if (pill) {
+        pill.addEventListener('click', () => {
+          isYearly = !isYearly;
+          pill.classList.toggle('yearly', isYearly);
+          lblMo.classList.toggle('active', !isYearly);
+          lblYr.classList.toggle('active', isYearly);
+          renderAll();
+        });
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAll);
+      else renderAll();
+    })();
+  </script>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    if (localStorage.getItem('sofia-theme') === 'dark') htmlEl.classList.add('dark');
+    themeToggle.addEventListener('click', () => {
+      htmlEl.classList.toggle('dark');
+      localStorage.setItem('sofia-theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+
+      const PALETTES = {
+        rapido: { primary: '#16a34a', secondary: '#4ade80', accent: '#86efac' },
+        preciso: { primary: '#9333ea', secondary: '#c084fc', accent: '#e9d5ff' },
+        seguro: { primary: '#2563eb', secondary: '#60a5fa', accent: '#bfdbfe' },
+        inteligente: { primary: '#ea580c', secondary: '#fb923c', accent: '#fed7aa' },
+      };
+      const FEATURE_ORDER = ['rapido', 'preciso', 'seguro', 'inteligente'];
+      let currentPalette = PALETTES['rapido'];
+      let targetPalette = PALETTES['rapido'];
+      let paletteProgress = 1;
+      let featureIdx = 0;
+
+      function hexToRgb(hex) {
+        if (hex.startsWith('rgb')) {
+          const m = hex.match(/(\d+),\s*(\d+),\s*(\d+)/);
+          return m ? { r: +m[1], g: +m[2], b: +m[3] } : { r: 0, g: 0, b: 0 };
+        }
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return { r, g, b };
+      }
+
+      function lerpColor(a, b, t) {
+        const ca = hexToRgb(a), cb = hexToRgb(b);
+        const r = Math.round(ca.r + (cb.r - ca.r) * t);
+        const g = Math.round(ca.g + (cb.g - ca.g) * t);
+        const bl = Math.round(ca.b + (cb.b - ca.b) * t);
+        return `rgb(${r},${g},${bl})`;
+      }
+
+      function lerpPalette(a, b, t) {
+        return {
+          primary: lerpColor(a.primary, b.primary, t),
+          secondary: lerpColor(a.secondary, b.secondary, t),
+          accent: lerpColor(a.accent, b.accent, t),
+        };
+      }
+
+      let paletteTimer = null;
+      function startPaletteSync() {
+        paletteTimer = setInterval(() => {
+          featureIdx = (featureIdx + 1) % FEATURE_ORDER.length;
+          currentPalette = { ...targetPalette };
+          targetPalette = PALETTES[FEATURE_ORDER[featureIdx]];
+          paletteProgress = 0;
+        }, 5000);
+      }
+      setTimeout(startPaletteSync, 1400);
+
+      function activePalette() {
+        if (paletteProgress >= 1) return targetPalette;
+        return lerpPalette(currentPalette, targetPalette, paletteProgress);
+      }
+
+      function resize() {
+        const hero = document.getElementById('hero');
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+        initParticles();
+      }
+
+      const NODE_COUNT = 72;
+      const MAX_DIST = 160;
+      const ORBIT_RINGS = [0.18, 0.34, 0.52];
+      let nodes = [];
+
+      function initParticles() {
+        nodes = [];
+        const W = canvas.width, H = canvas.height;
+        const cx = W / 2, cy = H / 2;
+        nodes.push({ x: cx, y: cy, vx: 0, vy: 0, r: 4, hub: true, baseX: cx, baseY: cy, orbit: -1, angle: 0, speed: 0 });
+        let nodeId = 1;
+        ORBIT_RINGS.forEach((radiusFrac, ri) => {
+          const radius = radiusFrac * Math.min(W, H);
+          const count = 8 + ri * 8;
+          const speedBase = 0.00020 - ri * 0.00004;
+          for (let i = 0; i < count && nodeId < NODE_COUNT; i++, nodeId++) {
+            const angle = (i / count) * Math.PI * 2;
+            nodes.push({
+              x: cx + Math.cos(angle) * radius,
+              y: cy + Math.sin(angle) * radius,
+              vx: 0, vy: 0, r: 1.8 - ri * 0.3 + Math.random() * 1.2,
+              hub: false, baseX: cx, baseY: cy, orbit: radius, angle: angle,
+              speed: speedBase * (ri % 2 === 0 ? 1 : -1) * (0.85 + Math.random() * 0.3)
+            });
+          }
+        });
+        while (nodes.length < NODE_COUNT) {
+          nodes.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - .5) * 0.35, vy: (Math.random() - .5) * 0.35,
+            r: 1 + Math.random() * 1.5, hub: false, orbit: -1, angle: 0, speed: 0
+          });
+        }
+      }
+
+      let raf, lastTime = 0;
+      function draw(now) {
+        raf = requestAnimationFrame(draw);
+        const dt = Math.min(now - lastTime, 32);
+        lastTime = now;
+        if (paletteProgress < 1) paletteProgress = Math.min(1, paletteProgress + dt * 0.0018);
+        const pal = activePalette();
+        const W = canvas.width, H = canvas.height;
+        const cx = W / 2, cy = H / 2;
+        ctx.clearRect(0, 0, W, H);
+        nodes.forEach(n => {
+          if (n.orbit >= 0) {
+            n.angle += n.speed * dt;
+            n.x = cx + Math.cos(n.angle) * n.orbit;
+            n.y = cy + Math.sin(n.angle) * n.orbit;
+          } else if (!n.hub) {
+            n.x += n.vx * dt * 0.5;
+            n.y += n.vy * dt * 0.5;
+            if (n.x < 0 || n.x > W) n.vx *= -1;
+            if (n.y < 0 || n.y > H) n.vy *= -1;
+            n.x = Math.max(0, Math.min(W, n.x));
+            n.y = Math.max(0, Math.min(H, n.y));
+          }
+        });
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i], b = nodes[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MAX_DIST) {
+              const alpha = (1 - dist / MAX_DIST) * 0.35;
+              const c = hexToRgb(pal.primary);
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        nodes.forEach(n => {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.hub ? 5 : n.r, 0, Math.PI * 2);
+          if (n.hub) {
+            const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 14);
+            grad.addColorStop(0, pal.primary);
+            grad.addColorStop(0.4, pal.secondary);
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.fill();
+            const ch = hexToRgb(pal.primary);
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 12, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(${ch.r},${ch.g},${ch.b},0.18)`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          } else {
+            ctx.fillStyle = n.orbit >= 0 ? pal.secondary : pal.accent;
+            ctx.globalAlpha = n.orbit >= 0 ? 0.7 : 0.4;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          }
+        });
+        ORBIT_RINGS.forEach(rf => {
+          const radius = rf * Math.min(W, H);
+          const co = hexToRgb(pal.primary);
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${co.r},${co.g},${co.b},0.06)`;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 8]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        });
+      }
+      window.addEventListener('resize', resize);
+      resize();
+      raf = requestAnimationFrame(draw);
+    })();
+  </script>
+</body>
+
+</html>
