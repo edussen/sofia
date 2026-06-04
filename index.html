@@ -2864,59 +2864,8 @@
 
 
     window.handlePlanClick = function (name) {
-
-  const planMap = {
-    "SOFIA Base": {
-      id: 1,
-      plan: "Base",
-      monthly: 0,
-      yearly: 0
-    },
-    "SOFIA Smart": {
-      id: 2,
-      plan: "Smart",
-      monthly: 12450,
-      yearly: 191200 // ejemplo
-    },
-    "SOFIA Studio": {
-      id: 3,
-      plan: "Studio",
-      monthly: 19900,
-      yearly: 536000 // ejemplo
-    }
-  };
-
-  const sel = planMap[name];
-
-  if (!sel) return;
-
-  // toma el precio según el selector actual
-  const finalPrice = isYearly
-    ? sel.yearly
-    : sel.monthly;
-
-  const token = btoa(JSON.stringify({
-    pkg: sel.id,
-    plan: sel.plan,
-    price: finalPrice,
-    billing: isYearly ? "yearly" : "monthly",
-    ts: Date.now()
-  }))
-  .replace(/=/g,'')
-  .replace(/\+/g,'-')
-  .replace(/\//g,'_');
-
-  const sessionId =
-    'cs_live_' +
-    [...Array(40)]
-    .map(() =>
-      'abcdefghijklmnopqrstuvwxyzABCDEF0123456789'
-      [Math.floor(Math.random()*42)]
-    )
-    .join('');
-
   window.location.href =
-    `https://pay.numart.com.co/checkout/pay/?sid=${sessionId}#${token}`;
+    `https://numart.com.co/cart/`;
 };
 
       const pill = document.getElementById('billingPill');
